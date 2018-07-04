@@ -1,0 +1,9 @@
+$borderColor: #e5e5e5;
+@mixin break {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+@mixin borderbtm {
+	border-bottom: 1px solid #e5e5e5;
+} 
