@@ -3,7 +3,7 @@
     <!-- 菜单模块 -->
     <menu-list></menu-list>
     <!-- 文字分割 -->
-    <separate :text="`本周拜访记录(${visitTotal})`"></separate>
+    <separate>本周拜访记录({{visitTotal}})</separate>
     <div>
       <no-record :text="noInfo" v-if="!visitList.length"></no-record>
       <visit-item v-for="(item, index) in visitList" :dataObj="item" :key="index"></visit-item>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-  import menuList from 'cpnts/menuList'
+  import menuList from 'cpnts/menuList/'
   import separate from 'cpnts/separate'
   import noRecord from 'cpnts/noRecord'
   import visitItem from 'cpnts/visitItem'
-  import { getVisitListWeekly } from '@/tool/ajax'
+  import { getVisitListWeekly } from '@/api/ajax'
   export default {
     name: '',
     data () {

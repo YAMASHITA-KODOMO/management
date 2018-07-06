@@ -3,7 +3,7 @@
     <page-tab :tabs="tabs" @click="clickTab"></page-tab>
     <div>
     	<linkman-item :dataObj="data"></linkman-item>
-    	<linkman-separate :text="'A'"></linkman-separate>
+    	<alphabet-separate>A</alphabet-separate>
     	<linkman-item :dataObj="data1"></linkman-item>
     </div>
   </div>
@@ -13,8 +13,8 @@
 	import pageTab from 'cpnts/pageTab'
 	import noRecord from 'cpnts/noRecord'
 	import linkmanItem from 'cpnts/linkmanItem'
-	import linkmanSeparate from 'cpnts/linkmanSeparate'
-	import { getCutomerListResponse, getCutomerListFollow } from '@/tool/ajax'
+	import alphabetSeparate from 'cpnts/alphabetSeparate'
+	import { getCutomerListResponse, getCutomerListFollow } from '@/api/ajax'
 	import { tabs } from '@/config'
 	export default {
 	  name: '',
@@ -40,7 +40,7 @@
 	  	pageTab,
 	  	noRecord,
 	  	linkmanItem,
-	  	linkmanSeparate
+	  	alphabetSeparate
 	  },
 	  methods: {
 	  	clickTab (arg) {

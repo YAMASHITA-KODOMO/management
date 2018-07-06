@@ -2,22 +2,22 @@ module.exports = {
 	// 首页菜单列表数据
 	menuList: [
 		{
-			icon: require('../assets/imgs/customer.png'),
+			icon: require('cpnts/menuList/customer.png'),
 			text: '客户',
 			url: '/customer'
 		},
 		{
-			icon: require('../assets/imgs/linkman.png'),
+			icon: require('cpnts/menuList/linkman.png'),
 			text: '联系人',
 			url: '/linkman'
 		},
 		{
-			icon: require('../assets/imgs/visit.png'),
+			icon: require('cpnts/menuList/visit.png'),
 			text: '拜访',
 			url: '/visit'
 		},
 		{
-			icon: require('../assets/imgs/files.png'),
+			icon: require('cpnts/menuList/files.png'),
 			text: '文件夹',
 			url: '/files'
 		},
@@ -30,17 +30,17 @@ module.exports = {
 	// 添加按钮的添加类别
 	addList: [
 		{
-			icon: require('../assets/imgs/add-customer-icon.png'),
+			icon: require('cpnts/addBtn/add-customer-icon.png'),
 			url: '/addCustomer',
 			text: '添加客户',
 		},
 		{
-			icon: require('../assets/imgs/add-linkman-icon.png'),
+			icon: require('cpnts/addBtn/add-linkman-icon.png'),
 			url: '/addLinkman',
 			text: '添加联系人',
 		},
 		{
-			icon: require('../assets/imgs/add-visit-icon.png'),
+			icon: require('cpnts/addBtn/add-visit-icon.png'),
 			url: '/addVisit',
 			text: '添加拜访记录',
 		}
@@ -82,14 +82,14 @@ module.exports = {
 	},
 	// 文件列表对应的icon
 	filesIcon: {
-		word: require('../assets/imgs/word.png'),
-		txt: require('../assets/imgs/txt.png'),
-		pdf: require('../assets/imgs/pdf.png'),
-		xlxs: require('../assets/imgs/xlxs.png'),
-		rar: require('../assets/imgs/rar.png'),
-		ppt: require('../assets/imgs/ppt.png'),
-		img: require('../assets/imgs/img.png'),
-		others: require('../assets/imgs/others.png'),
+		word: require('cpnts/filesItem/word.png'),
+		txt: require('cpnts/filesItem/txt.png'),
+		pdf: require('cpnts/filesItem/pdf.png'),
+		xlxs: require('cpnts/filesItem/xlxs.png'),
+		rar: require('cpnts/filesItem/rar.png'),
+		ppt: require('cpnts/filesItem/ppt.png'),
+		img: require('cpnts/filesItem/img.png'),
+		others: require('cpnts/filesItem/others.png'),
 	},
 	// 客户类型分类icon
 	customerTypeIcon: [
@@ -168,5 +168,9 @@ module.exports = {
 			icon: require('../assets/imgs/ct-qtlx.png'),
 			typeID: '20'
 		},
-	]
+	],
+	devHost: 'http://task.ipanel.cn/projtest/api/customer_api',
+	prodHost: 'http://task.ipanel.cn/api/customer_api',
+	host: 'http://task.ipanel.cn/api/customer_api',
+	userid: 'wangj',
 }

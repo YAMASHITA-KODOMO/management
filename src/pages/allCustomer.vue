@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import customerItem from 'cpnts/customerItem'
-  import separate from 'cpnts/separate'
-  import noRecord from 'cpnts/noRecord'
-  import { getCutomerListByType } from '@/tool/ajax'
+  import customerItem from 'c/customerItem'
+  import separate from 'c/separate'
+  import noRecord from 'c/noRecord'
+  import { getCutomerListByType } from '@/api/ajax'
   export default {
     name: 'allCustomer',
     data () {

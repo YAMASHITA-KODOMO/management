@@ -1,7 +1,7 @@
 <template>
   <div class="customer">
   	<!-- 页面的tab菜单 -->
-    <page-tab :tabs="tabs" @click="clickTab" class="tabs"></page-tab>
+    <page-tab :tabs="tabs" @click="clickTab" class="tabs" :activeID="activeID"></page-tab>
     <!-- 每个类型的列表显示都不一样，分开来写，减少耦合判断 -->
     <!-- 我负责的 -->
     <div
@@ -12,9 +12,9 @@
   			v-infinite-scroll="loadMoreResponseCustomer"
 			  infinite-scroll-disabled="responseLoading"
 			  infinite-scroll-distance="10">
-  			<separate v-if="responseUsuallyList.length" :text="`常联系客户(${responseUsuallyTotal})`"></separate>
+  			<separate v-if="responseUsuallyList.length">常联系客户({{responseUsuallyTotal}})</separate>
   			<customer-item v-for="(item, index) in responseUsuallyList" :dataObj="item" :key="`responseUsually-${index}`"></customer-item>
-  			<separate v-if="responseOtherList.length" :text="`3个月以上未联系客户(${responseOtherTotal})`"></separate>
+  			<separate v-if="responseOtherList.length">3个月以上未联系客户({{responseOtherTotal}})</separate>
   			<customer-item v-for="(item, index) in responseOtherList" :dataObj="item" :key="index"></customer-item>
   			<no-more v-if="responseAll"></no-more>
   		</div>
@@ -47,12 +47,13 @@
 
 <script>
 	import Vue from 'vue'
-	import pageTab from 'cpnts/pageTab'
-	import noRecord from 'cpnts/noRecord'
-	import customerItem from 'cpnts/customerItem'
-	import noMore from 'cpnts/noMore'
-	import separate from 'cpnts/separate'
-	import { getCutomerListResponse, getCutomerListFollow } from '@/tool/ajax'
+	import { mapState } from 'vuex'
+	import pageTab from 'c/pageTab'
+	import noRecord from 'c/noRecord'
+	import customerItem from 'c/customerItem'
+	import noMore from 'c/noMore'
+	import separate from 'c/separate'
+	import { getCutomerListResponse, getCutomerListFollow } from 'api/customer'
 	import { tabs, customerTypeIcon } from '@/config'
 	import { InfiniteScroll  } from 'mint-ui'
 	Vue.use( InfiniteScroll )
@@ -62,7 +63,6 @@
 	    return {
 	    	tabs: tabs.customer,/*tab数据*/
 	    	noInfo: '暂无客户信息',/*没有数据时的文字*/
-	    	activeID: 'response',/*默认显示我负责的*/
 	    	/*我负责列表*/
 	    	responseUsuallyList: [],
 	    	responseUsuallyTotal: 0,
@@ -70,14 +70,20 @@
 	    	responseOtherTotal: 0,
 	    	responseLoading: true,/*是否允许加载，true不允许，因为是全局监听scroll事件，所以在其他的tab页不允许加载*/
 	    	responseAll: false,/*是否已经加载完全，显示加载完全的文字提示*/
-	    	responsePage: 0,/*当前页面*/
+	    	responsePage: 1,/*当前页面,从1开始算*/
 	    	/*我关注的*/
 	    	followList: [],
 	    	followLoading: true,
 	    	followAll: false,
-	    	followPage: 0,
+	    	followPage: 1,
 	    	allList: customerTypeIcon,/*全部列表*/
 	    }
+	  },
+	  computed: {
+	  	...mapState({
+	  		// 激活的tab，默认response
+	  		activeID: state => state.customerTab
+	  	})
 	  },
 	  watch: {
 	  	activeID (val) {
@@ -97,10 +103,10 @@
 	  	this.loadMoreResponseCustomer(0, 20)
 	  },
 	  methods: {
-	  	loadMoreFollowCustomer (pageidx, pagenum) {
-	  		let res = getCutomerListFollow(pageidx, pagenum);
+	  	async loadMoreFollowCustomer () {
+	  		let res = await getCutomerListFollow({pageidx: this.followPage});
 	  		this.followList.push(...res.list)
-	  		if (this.followList.length > 100) {
+	  		if (res.list.length < 20) {
 	  			this.followAll = true
 	  			this.followLoading = true
 	  		}
@@ -115,7 +121,7 @@
 	  		}
 	  	},
 	  	clickTab (arg) {
-	  		this.activeID = arg.id
+	  		this.$store.commit('setCustomerTab', arg.id)
 	  	}
 	  }
 	}

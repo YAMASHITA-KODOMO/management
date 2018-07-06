@@ -41,11 +41,18 @@ let defaltRouter = new Router({
       component: resolve => require(['pages/allCustomer'], resolve)
     },
     {
+      path: '/customerInfo',
+      name: 'customerInfo',
+      meta: {
+        name: '客户信息'
+      },
+      component: resolve => require(['pages/customer/customerInfo'], resolve)
+    },
+    {
       path: '/addCustomer',
       name: 'addCustomer',
       meta: {
-        searchBtn: false,
-        addBtn: false,
+        keepAlive: true,
         name: '新建客户'
       },
       component: resolve => require(['pages/addCustomer'], resolve)

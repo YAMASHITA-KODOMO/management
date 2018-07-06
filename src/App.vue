@@ -1,14 +1,17 @@
 <template>
   <div id="app" :class="{pt80: $route.meta.searchBtn}">
     <search-btn v-show="$route.meta.searchBtn"></search-btn>
-    <router-view/>
+    <keepAlive>
+      <router-view v-if="$route.meta.keepAlive"/>
+    </keepAlive>
+    <router-view v-if="!$route.meta.keepAlive"/>
     <add-btn v-show="$route.meta.addBtn"></add-btn>
   </div>
 </template>
 
 <script>
-import searchBtn from '@/components/searchBtn'
-import addBtn from '@/components/addBtn'
+import searchBtn from '@/components/searchBtn/'
+import addBtn from '@/components/addBtn/'
 export default {
   name: 'App',
   components: {

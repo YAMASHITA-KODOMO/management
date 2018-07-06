@@ -1,4 +1,12 @@
 $borderColor: #e5e5e5;
+
+$black: #000;
+$dark: #000;
+$grey: #6c6c6c;
+$lightgrey: #939393;
+
+$color-active: #f3602d;
+
 @mixin break {
   overflow:hidden;
   text-overflow:ellipsis;
