@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import inputText from 'cpnts/inputText'
   import inputArea from 'cpnts/inputArea'
   import checkbox from 'cpnts/checkbox'
@@ -32,10 +32,13 @@
     },
     computed: {
       // 需要跨页面获取数据，使用state保存
-      ...mapState({
-        // 对象是引用地址，所以会直接修改state
-        customer: state => state.customer,
-      })
+      // ...mapState({
+      //   // 对象是引用地址，所以会直接修改state
+      //   customer: state => state.customer,
+      // })
+      ...mapGetters([
+        'customer'
+      ])
     },
     components: {
       inputText,
@@ -45,12 +48,20 @@
       // cityPicker,
     },
     async created () {
-      if (this.$route.query.id ) {
-        let info = getCustomerInfo(this.$route.query.id)
-        this.$store.commit('initCustomer', info)
+      // if (this.$route.query.id ) {
+      //   let info = getCustomerInfo(this.$route.query.id)
+      //   this.$store.commit('initCustomer', info)
+      // }
+      let id = this.$route.query.id
+      if ( id ) {
+        let info = await getCustomerInfo(id)
+        this.initCustomer(info)
       }
     },
     methods: {
+      ...mapMutations({
+        initCustomer: 'INIT_CUSTOMER'
+      }),
       checkCity () {
         console.log('checkCity')
       },

@@ -1,0 +1,9 @@
+export const INIT_CUSTOMER = 'INIT_CUSTOMER'
+
+export const CLEAR_CUSTOMER = 'CLEAR_CUSTOMER'
+
+export const SET_CUSTOMER = 'SET_CUSTOMER'
+
+export const SET_LINKMAN = 'SET_LINKMAN'
+
+export const SET_CUSTOMER_TAB = 'SET_CUSTOMER_TAB'
