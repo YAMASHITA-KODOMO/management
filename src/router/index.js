@@ -34,8 +34,8 @@ let defaltRouter = new Router({
       path: '/allCustomer',
       name: 'allCustomer',
       meta: {
-        searchBtn: false,
-        addBtn: false,
+        // searchBtn: false,
+        // addBtn: false,
         name: '全部客户'
       },
       component: resolve => require(['pages/allCustomer'], resolve)
@@ -61,8 +61,8 @@ let defaltRouter = new Router({
       path: '/checkCustomerType',
       name: 'checkCustomerType',
       meta: {
-        searchBtn: false,
-        addBtn: false,
+        // searchBtn: false,
+        // addBtn: false,
         name: '选择客户类型户'
       },
       component: resolve => require(['pages/checkCustomerType'], resolve)
@@ -71,8 +71,8 @@ let defaltRouter = new Router({
       path: '/checkCustomer',
       name: 'checkCustomer',
       meta: {
-        searchBtn: false,
-        addBtn: false,
+        // searchBtn: false,
+        // addBtn: false,
         name: '选择上级单位'
       },
       component: resolve => require(['pages/checkCustomer'], resolve)
@@ -111,8 +111,36 @@ let defaltRouter = new Router({
   ]
 })
 
+
+class frameSingleton {
+  constructor(){
+    this.dom = document.createElement('iframe')
+    this.setAttr()
+  }
+  setAttr(){
+    let dom = this.dom
+    dom.src = '/favicon.ico'
+    dom.style.display = 'none'
+    dom.onload = function () {
+      console.log(1)
+      setTimeout(function () {
+        dom.remove();
+      }, 0);
+    }
+  }
+}
+
+const frameProxy=(()=>{
+  let instance
+  return ()=> instance || (instance = Reflect.construct(frameSingleton, []).dom)
+})()
+
+
 defaltRouter.beforeEach(function(to, from, next) {
   document.title = to.meta.name
+  // if (/ios/i.test(navigator.appVersion)) {
+  //   document.body.appendChild(frameProxy())
+  // }
   next()
 })
 
