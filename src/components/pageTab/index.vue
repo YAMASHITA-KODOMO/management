@@ -3,9 +3,9 @@
   <div class="tabs">
   	<ul>
   		<li 
-  			@click="clickEvent(item, index)" 
+  			@click="clickEvent(item)" 
   			v-for="(item, index) in tabs" 
-  			:class="{active: item.id === activeID}"
+  			:class="{active: item.id === activeClass}"
   			>{{item.text}}<span></span>
   		</li>
   	</ul>
@@ -29,11 +29,11 @@
     },
     created () {
     	// props不能更改，只能在props的基础上衍生出值
-			this.activeClass = this.active
+			this.activeClass = this.activeID
     },
     methods: {
-    	clickEvent (arg, index) {
-    		this.activeClass = index
+    	clickEvent (arg) {
+    		this.activeClass = arg.id
     		// 将click事件暴露出来，并传递当前点击的值
     		this.$emit('click', arg)
     	}

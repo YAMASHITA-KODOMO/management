@@ -12,10 +12,10 @@
 </template>
 
 <script>
-  import menuList from 'cpnts/menuList/'
-  import separate from 'cpnts/separate'
-  import noRecord from 'cpnts/noRecord'
-  import visitItem from 'cpnts/visitItem'
+  import menuList from 'c/menuList/'
+  import separate from 'c/separate'
+  import noRecord from 'c/noRecord'
+  import visitItem from 'c/visitItem'
   import { getVisitListWeekly } from '@/api/ajax'
   export default {
     name: '',

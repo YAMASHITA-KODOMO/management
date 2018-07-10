@@ -6,15 +6,21 @@
         <span class="ok">确认</span>
       </div>
       <div class="picker-content">
-        <mt-picker 
-          :visibleItemCount="6"
-          :itemHeight="100"
-          :slots="slots"
-          valueKey='name'
-          @change="onValuesChange"
-          >
-        </mt-picker>
-        <!-- <div class="selected"></div> -->
+        <div class="province">
+          <div class="hidebar">
+            <div v-for="(item, index) in province" :key="index">{{item.name}}</div>
+          </div>
+        </div>
+        <div class="city">
+          <div class="hidebar">
+            <div v-for="(item, index) in city" :key="index">{{item.name}}</div>
+          </div>
+        </div>
+        <div class="area">
+          <div class="hidebar">
+            <div v-for="(item, index) in area" :key="index">{{item}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -22,36 +28,28 @@
 
 <script>
   import cityData from './cityData'
-  import { Picker  } from 'mint-ui'
   export default {
     name: 'cityPicker',
     props: [],
     data () {
       return {
-        slots: [
-          {
-            flex: 1,
-            values: [],
-            className: 'slot1',
-            textAlign: 'center'
-          },{
-            flex: 1,
-            values: ['1', '2', '3', '4', '5', '6','7', '8', '9'],
-            className: 'slot2',
-            textAlign: 'center'
-          },{
-            flex: 1,
-            values: ['1', '2', '3', '4', '5', '6','7', '8', '9'],
-            className: 'slot3',
-            textAlign: 'center'
-          }
-        ]
+        curProvince: {
+          name: '',
+          id: ''
+        },
+        curCity: {
+          name: '',
+          id: ''
+        },
+        curArea: {
+          name: '',
+          id: ''
+        }
       }
     },
     computed: {
       province: {
         get(){
-          let arr = []
           return cityData
         },
         set(){}
@@ -69,43 +67,29 @@
         set(){}
       }
     },
-    components: {
-      [Picker.name]: Picker
-    },
     created () {
       this.initData()
     },
     methods: {
       initData () {
-        let data = Object.entries(cityData).map(x => {
-          return {id: x[0], name: x[1].name}
-        })
-        this.slots[0].values = data
-        // console.log(Array.from(cityData))
-      },
-      onValuesChange (picker, values) {
-        console.log(picker)
-        console.log(values)
+        this.curProvince ={
+          name: '北京市',
+          id: '110000'
+        }
+        this.curCity = {
+          name: '市辖区',
+          id: '110100'
+        }
+        this.curArea = {
+          name: '东城区',
+          id: '110101'
+        }
       }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.slot1, .slot2, .slot3 {
-  font-size: 34px;
-}
-.picker-slot, .picker-slot-wrapper {
-  width: 180px;
-}
-.picker-center-highlight {
-  /*display: none;*/
-  /*position: absolute;
-  top: 0;
-  left: 0;*/
-}
-</style>
 <style scoped>
 .city-picker {
   height: 100%;
@@ -121,7 +105,6 @@
   left: 0;
   height: 700px;
   width: 100%;
-  background: #fff;
 }
 .picker-tool {
   height: 80px;
@@ -140,21 +123,37 @@
 }
 .picker-content {
   position: relative;
-  /*background: #fff;*/
-  /*height: 620px;*/
+  background: #fff;
+  height: 620px;
   width: 100%;
-  /*padding: 10px 105px;*/
+  padding: 10px 105px;
   box-sizing: border-box;
 }
 .selected {
-  height: 100px;
-  width: 100%;
   position: absolute;
-  top: 310px;
-  left: 0;
+  width: 100%;
+  height: 100px;
   box-sizing: border-box;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
-  z-index: -9;
+}
+.province, .city, .area {
+  width: 180px;
+  height: 600px;
+  float: left;
+  /*background: blue;*/
+  overflow: hidden;
+}
+.hidebar {
+  width: 190px;
+  height: 600px;
+  overflow-y: scroll;
+}
+.hidebar > div {
+  height: 100px;
+  box-sizing: border-box;
+  line-height: 100px;
+  text-align: center;
+  /*font-size: 34px;*/
 }
 </style>

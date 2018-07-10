@@ -1,6 +1,16 @@
 <template>
   <div>
-    <input-text  label="客户全称" v-model="customer.name" :need="true"></input-text>
+    <c-input 
+      v-for='(item, index) in inputList'
+      :class="item.class"
+      :label='item.label'
+      :model='customer[item.model]'
+      :req='item.req'
+      :type="item.type"
+      :route="item.route"
+      :event="item.event || function (){}"
+      :key="index"></c-input>
+    <!-- <input-text  label="客户全称" v-model="customer.name" :need="true"></input-text>
     <checkbox label="客户类型" v-model="customer.type" :need="true" type="checkCustomerType"></checkbox>
     <checkbox label="上级单位" v-model="customer.sup" type="checkCustomer"></checkbox>
     <checkbox label="省份·城市·城区" v-model="customer.city" @click="checkCity"></checkbox>
@@ -11,23 +21,93 @@
     <input-area label="客户简介" v-model="customer.desc"></input-area>
     <checkbox label="客户负责人" v-model="customer.response_man" :need="true" type="checkResponse"></checkbox>
     <input-area label="备注" v-model="customer.remark"></input-area>
-    <btn class="m80" @click="submit">提交</btn>
+    <btn class="m80" @click="submit">提交</btn> -->
     <!-- <city-picker :open="true"></city-picker> -->
   </div>
 </template>
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'
-  import inputText from 'cpnts/inputText'
-  import inputArea from 'cpnts/inputArea'
-  import checkbox from 'cpnts/checkbox'
-  import btn from 'c/btn'
+  // import inputText from 'c/inputText'
+  // import inputArea from 'c/inputArea'
+  // import checkbox from 'c/checkbox'
+  // import btn from 'c/btn'
+  import cInput from 'c/cInput'
   // import cityPicker from 'c/cityPicker'
   import { getCustomerInfo } from 'api/customer'
   export default {
     name: 'addCustomer',
     data () {
       return {
+        inputList: [
+          {
+            label: '客户全称',
+            model: 'name',
+            req: true,
+            type: 'text'
+          },
+          {
+            label: '客户类型',
+            model: 'type',
+            req: true,
+            type: 'checkbox',
+            route: 'checkCustomerType'
+          },
+          {
+            label: '上级单位',
+            model: 'sup',
+            type: 'checkbox',
+            route: 'checkCustomer'
+          },
+          {
+            label: '省份·城市·城区',
+            model: 'type',
+            type: 'checkbox',
+            event: this.checkCity
+          },
+          {
+            label: '电话',
+            model: 'phone',
+            type: 'text'
+          },
+          {
+            label: '传真',
+            model: 'fax',
+            type: 'text'
+          },
+          {
+            label: '详细地址',
+            model: 'address',
+            type: 'area'
+          },
+          {
+            label: '邮政编码',
+            model: 'postal',
+            type: 'text'
+          },
+          {
+            label: '客户简介',
+            model: 'desc',
+            type: 'area'
+          },
+          {
+            label: '客户负责人',
+            model: 'response_man',
+            type: 'checkbox',
+            route: 'checkResponse',
+            req: true
+          },
+          {
+            label: '备注',
+            model: 'remark',
+            type: 'area',
+          },
+          {
+            label: '提交',
+            type: 'btn',
+            event: this.submit
+          }
+        ]
       }
     },
     computed: {
@@ -41,10 +121,11 @@
       ])
     },
     components: {
-      inputText,
-      checkbox,
-      inputArea,
-      btn,
+      // inputText,
+      cInput,
+      // checkbox,
+      // inputArea,
+      // btn,
       // cityPicker,
     },
     async created () {

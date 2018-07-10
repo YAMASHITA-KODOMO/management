@@ -10,10 +10,10 @@
 </template>
 
 <script>
-	import pageTab from 'cpnts/pageTab'
-	import noRecord from 'cpnts/noRecord'
-	import linkmanItem from 'cpnts/linkmanItem'
-	import alphabetSeparate from 'cpnts/alphabetSeparate'
+	import pageTab from 'c/pageTab'
+	import noRecord from 'c/noRecord'
+	import linkmanItem from 'c/linkmanItem'
+	import alphabetSeparate from 'c/alphabetSeparate'
 	import { getCutomerListResponse, getCutomerListFollow } from '@/api/ajax'
 	import { tabs } from '@/config'
 	export default {

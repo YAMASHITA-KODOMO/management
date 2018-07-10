@@ -5,7 +5,6 @@ import 'mint-ui/lib/style.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { infiniteScroll } from 'mint-ui'
 import store from '@/store'
 
 // Vue.use(infiniteScroll)

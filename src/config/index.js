@@ -2,22 +2,22 @@ module.exports = {
 	// 首页菜单列表数据
 	menuList: [
 		{
-			icon: require('cpnts/menuList/customer.png'),
+			icon: require('c/menuList/customer.png'),
 			text: '客户',
 			url: '/customer'
 		},
 		{
-			icon: require('cpnts/menuList/linkman.png'),
+			icon: require('c/menuList/linkman.png'),
 			text: '联系人',
 			url: '/linkman'
 		},
 		{
-			icon: require('cpnts/menuList/visit.png'),
+			icon: require('c/menuList/visit.png'),
 			text: '拜访',
 			url: '/visit'
 		},
 		{
-			icon: require('cpnts/menuList/files.png'),
+			icon: require('c/menuList/files.png'),
 			text: '文件夹',
 			url: '/files'
 		},
@@ -30,17 +30,17 @@ module.exports = {
 	// 添加按钮的添加类别
 	addList: [
 		{
-			icon: require('cpnts/addBtn/add-customer-icon.png'),
+			icon: require('c/addBtn/add-customer-icon.png'),
 			url: '/addCustomer',
 			text: '添加客户',
 		},
 		{
-			icon: require('cpnts/addBtn/add-linkman-icon.png'),
+			icon: require('c/addBtn/add-linkman-icon.png'),
 			url: '/addLinkman',
 			text: '添加联系人',
 		},
 		{
-			icon: require('cpnts/addBtn/add-visit-icon.png'),
+			icon: require('c/addBtn/add-visit-icon.png'),
 			url: '/addVisit',
 			text: '添加拜访记录',
 		}
@@ -82,14 +82,14 @@ module.exports = {
 	},
 	// 文件列表对应的icon
 	filesIcon: {
-		word: require('cpnts/filesItem/word.png'),
-		txt: require('cpnts/filesItem/txt.png'),
-		pdf: require('cpnts/filesItem/pdf.png'),
-		xlxs: require('cpnts/filesItem/xlxs.png'),
-		rar: require('cpnts/filesItem/rar.png'),
-		ppt: require('cpnts/filesItem/ppt.png'),
-		img: require('cpnts/filesItem/img.png'),
-		others: require('cpnts/filesItem/others.png'),
+		word: require('c/filesItem/word.png'),
+		txt: require('c/filesItem/txt.png'),
+		pdf: require('c/filesItem/pdf.png'),
+		xlxs: require('c/filesItem/xlxs.png'),
+		rar: require('c/filesItem/rar.png'),
+		ppt: require('c/filesItem/ppt.png'),
+		img: require('c/filesItem/img.png'),
+		others: require('c/filesItem/others.png'),
 	},
 	// 客户类型分类icon
 	customerTypeIcon: [

@@ -32,7 +32,7 @@ const mutations =  {
 	[types.SET_LINKMAN] (state, obj) {
 		state.linkmane[obj.key] = obj.value
 	},
-	[types.SET_CUSTOMER_TAB] (state, obj) {
+	[types.SET_CUSTOMER_TAB] (state, value) {
 		state.customerTab = value
   },
 }
