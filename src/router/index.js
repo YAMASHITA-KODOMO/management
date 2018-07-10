@@ -153,7 +153,7 @@ const frameProxy=(()=>{
 defaltRouter.beforeEach(function(to, from, next) {
   document.title = to.meta.name
   // if (/ios/i.test(navigator.userAgent)) {
-  //ios下不能更新标题名,有问题的时候再使用，但会触发多次路由跳转事件
+  // ios下不能更新标题名,有问题的时候再使用，但会触发多次路由跳转事件
   //   document.body.appendChild(frameProxy())
   // }
   next()
