@@ -1,12 +1,20 @@
 $borderColor: #e5e5e5;
-
 $black: #000;
-$dark: #000;
 $grey: #6c6c6c;
 $lightgrey: #939393;
-
 $color-active: #f3602d;
 $link-color: #4794e8;
+
+
+
+
+//颜色
+$color-text: #000;
+$color-border: #e5e5e5;
+
+//字体大小
+$font-size-large: 30px;
+
 
 @mixin break {
   overflow:hidden;

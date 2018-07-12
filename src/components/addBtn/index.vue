@@ -14,13 +14,28 @@
 </template>
 
 <script>
-  import { addList } from '@/config'
   export default {
     name: 'addBtn',
     data () {
       return {
         mask: false,
-        addList: addList
+        addList: [
+          {
+            icon: require('c/addBtn/add-customer-icon.png'),
+            url: '/addCustomer',
+            text: '添加客户',
+          },
+          {
+            icon: require('c/addBtn/add-linkman-icon.png'),
+            url: '/addLinkman',
+            text: '添加联系人',
+          },
+          {
+            icon: require('c/addBtn/add-visit-icon.png'),
+            url: '/addVisit',
+            text: '添加拜访记录',
+          }
+        ]
       }
     },
     created () {

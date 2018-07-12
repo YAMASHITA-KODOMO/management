@@ -64,6 +64,8 @@ let defaltRouter = new Router({
       path: '/checkCustomerType',
       name: 'checkCustomerType',
       meta: {
+        searchBtn: false,
+        addBtn: false,
         name: '选择客户类型户'
       },
       component: resolve => require(['pages/checkCustomerType'], resolve)
@@ -72,6 +74,8 @@ let defaltRouter = new Router({
       path: '/checkCustomer',
       name: 'checkCustomer',
       meta: {
+        searchBtn: false,
+        addBtn: false,
         name: '选择上级单位'
       },
       component: resolve => require(['pages/checkCustomer'], resolve)
@@ -122,40 +126,20 @@ let defaltRouter = new Router({
         name: '文件'
       },
       component: resolve => require(['pages/files'], resolve)
+    },
+    {
+      path: '/search',
+      name: 'search',
+      meta: {
+        name: '搜索'
+      },
+      component: resolve => require(['pages/search'], resolve)
     }
   ]
 })
 
-
-class frameSingleton {
-  constructor(){
-    this.dom = document.createElement('iframe')
-    this.setAttr()
-  }
-  setAttr(){
-    let dom = this.dom
-    dom.src = '/favicon.ico'
-    dom.style.display = 'none'
-    dom.onload = function () {
-      console.log(1)
-      setTimeout(function () {
-        dom.remove();
-      }, 0);
-    }
-  }
-}
-
-const frameProxy=(()=>{
-  let instance
-  return ()=> instance || (instance = Reflect.construct(frameSingleton, []).dom)
-})()
-
 defaltRouter.beforeEach(function(to, from, next) {
   document.title = to.meta.name
-  // if (/ios/i.test(navigator.userAgent)) {
-  // ios下不能更新标题名,有问题的时候再使用，但会触发多次路由跳转事件
-  //   document.body.appendChild(frameProxy())
-  // }
   next()
 })
 

@@ -11,13 +11,33 @@
 </template>
 
 <script>
-	import config from '@/config'
 	export default {
 	  name: 'menuList',
 	  data () {
 	    return {
-	    	list: config.menuList
-	    }
+	    	list: [
+	    		{
+						icon: require('./customer.png'),
+						text: '客户',
+						url: '/customer'
+					},
+					{
+						icon: require('./linkman.png'),
+						text: '联系人',
+						url: '/linkman'
+					},
+					{
+						icon: require('./visit.png'),
+						text: '拜访',
+						url: '/visit'
+					},
+					{
+						icon: require('./files.png'),
+						text: '文件夹',
+						url: '/files'
+					},
+				]
+			}
 	  }
 	}
 </script>
@@ -28,28 +48,27 @@
 .menu-list {
 	background: #fff;
 	width: 100%;
-	border-bottom: 1px solid $borderColor;
+	border-bottom: 1px solid $color-border;
 	ul {
+		height: 250px;
+		padding: 0 10px;
 		display: flex;
-		flex-wrap: wrap;
-		padding: 50px 10px 0;
+		justify-content: space-around;
+		align-items: center;
 		li {
-			width: 25%;
-			margin-bottom: 50px;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
 			align-items: center;
-			// text-align: center;
 			img {
 				width: 102px;
 				height: 102px;
 				margin-bottom: 14px;
 			}
 			p {
-				font-size: 30px;
-				line-height: 30px;
-				color: #000;
+				font-size: $font-size-large;
+				line-height: $font-size-large;
+				color: $color-text;
 			}
 		}
 	}
