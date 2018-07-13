@@ -32,7 +32,7 @@ export default {
   data () {
     return {
     	keyword: '',
-    	activeID: 'customer',
+    	activeID: '',
     	tabs: [
 	    	{
 					text: '客户',
@@ -59,6 +59,10 @@ export default {
   	noRecord,
   	searchHistory,
   	pageTab,
+  },
+  created(){
+  	let type = this.$route.query.type
+  	this.activeID = type === 'index' ? 'customer' : type
   },
   methods: {
   	tabChange (arg) {

@@ -20,17 +20,28 @@ export function getCustomerlistTotal (obj = {}) {
 
 // 获取客户信息
 export function getCustomerInfo(id) {
-	let data = {
-		name: '大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司',
-		response_man: '吴菲',
-		phone: '13888888888',
-		postal: '541800',
-		address: '大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司',
-		linkman_num: 3,
-		files_num: 5,
-		follow: false
-	}
-	return data
+	// let data = {
+	// 	name: '大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司',
+	// 	response_man: '吴菲',
+	// 	phone: '13888888888',
+	// 	postal: '541800',
+	// 	address: '大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司大连天途有线电视网络股份有限公司',
+	// 	linkman_num: 3,
+	// 	files_num: 5,
+	// 	follow: false
+	// }
+	// return data
+
+	//因为你把全局的baseURL改掉了 我就这样暂时用一下
+	var test = axios.create({
+		baseURL: '/api/'
+	})
+	return test.get('getCustomerInfo', {params: {id}})
+	.then(
+		(res)=>{
+			return res.data.data
+		}
+	)
 }
 // 关注客户
 export function setCustomerFollow(id) {

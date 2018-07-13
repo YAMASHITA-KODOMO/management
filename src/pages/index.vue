@@ -9,20 +9,22 @@
     <div
       class="scroll"
       v-infinite-scroll="loadMoreVisit"
-      infinite-scroll-disabled="responseLoading"
+      infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
       >
       <no-record :text="noInfo" v-if="!visitList.length"></no-record>
       <visit-item v-for="(item, index) in visitList" :dataObj="item" :key="index"></visit-item>
+      <no-more v-show="listAll"></no-more>
     </div>
   </div>
 </template>
 
 <script>
-  import menuList from 'c/menuList/'
+  import menuList from 'c/menuList'
   import separate from 'c/separate'
   import noRecord from 'c/noRecord'
   import visitItem from 'c/visitItem'
+  import noMore from 'c/noMore'
   import { getVisitListWeekly } from 'api/visit'
   export default {
     name: '',
@@ -31,7 +33,8 @@
         visitTotal: 0,
         noInfo: '暂无拜访记录',
         visitList: [],
-        nomore: true,
+        loading: false,
+        listAll: false,
         curpage: 1
       }
     },
@@ -40,13 +43,22 @@
       separate,
       noRecord,
       visitItem,
+      noMore,
     },
     async created () {
     },
     methods: {
       async loadMoreVisit () {
         let res = await getVisitListWeekly({pageidx: this.curpage})
+        if (!this.visitTotal) {
+          this.visitTotal = res.total
+        }
+        this.curpage++
         this.visitList.push(...res.list)
+        if (res.list.length < 20) {
+          this.loading = true
+          this.listAll = true
+        }
       }
     }
   }

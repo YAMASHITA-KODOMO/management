@@ -2,11 +2,11 @@
   <div class="linkman-item" @click="$router.push({path: '/linkmanInfo', query: {id: dataObj.id}})">
   	<div class="name">
   		<p>{{dataObj.name}}</p>
-  		<p>{{dataObj.department}}</p>
+  		<p>{{dataObj.department || '未知'}}</p>
   	</div>
   	<div class="phone">
-  		<p>{{dataObj.phone}}</p>
-  		<p>{{dataObj.customer}}</p>
+  		<p>{{dataObj.phone || '未知'}}</p>
+  		<p>{{dataObj.customer || '未知'}}</p>
   	</div>
   </div>
 </template>

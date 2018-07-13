@@ -1,7 +1,7 @@
 <template>
-  <div class="city-picker">
+  <div class="city-picker" @click="clickEvent($event)">
     <div class="wrap">
-      <div class="picker-tool">
+      <div class="picker-tool" ref="tool">
         <span class="cancel" @click="hidePanel">取消</span>
         <span class="ok" @click="submitPanel">确认</span>
       </div>
@@ -11,7 +11,7 @@
         <mt-picker
           ref="picker"
           :visibleItemCount="7"
-          :itemHeight="100"
+          :itemHeight="hei"
           :slots="slots"
           valueKey="name"
           @change="onValuesChange"
@@ -51,6 +51,7 @@
             textAlign: 'center'
           }
         ],
+        hei: Math.round(1.333333333 * window.lib.flexible.rem)
       }
     },
     components: {
@@ -58,6 +59,10 @@
     },
     created () {
       this.initData()
+      // this.hei = this.getStyleAttr(this.$refs.tool, 'height')
+    },
+    mounted () {
+      // this.hei = parseInt(parseFloat(this.getStyleAttr(this.$refs.tool, 'height')) / 80 * 100)
     },
     methods: {
       // 初始化数据
@@ -81,6 +86,11 @@
         this.$emit('hidePanel')
         let values = this.$refs.picker.getValues()
         this.$emit('submitPanel', [values[0], values[1].name, values[2].name])
+      },
+      clickEvent (event) {
+        if (event.target.className === 'city-picker') {
+          this.$emit('hidePanel')
+        }
       }
     }
   }
@@ -100,6 +110,16 @@
   top: 0;
   left: 0;*/
 }
+/*.picker {
+  height: 600px;
+}
+.picker-item {
+  height: 100px !important;
+  line-height: 100px !important;
+}
+.picker-slot {
+  height: 700px !important;
+}*/
 </style>
 <style scoped>
 .city-picker {
@@ -120,6 +140,7 @@
 }
 .picker-tool {
   height: 80px;
+  /*height: 100px;*/
   background-color: #f5f5f5;
   line-height: 80px;
   color: #f3602d;

@@ -63,8 +63,7 @@
       this.getHeiInit = true
       this.$nextTick(x => {
         this.transHideHei = this.getStyleAttr(this.$refs.content, 'height')
-      })
-      
+      })  
     },
     methods: {
       getStyleAttr (ele, attr) {

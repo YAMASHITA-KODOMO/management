@@ -18,8 +18,7 @@ export default {
   },
   methods: {
     clickEvent () {
-      console.log(this.$route)
-      this.$router.push({path: '/search'})
+      this.$router.push({path: '/search', query: {type: this.$route.name}})
     }
   }
 }

@@ -35,6 +35,9 @@ const mutations =  {
 	[types.SET_CUSTOMER_TAB] (state, value) {
 		state.customerTab = value
   },
+  [types.SET_LINKMAN_TAB] (state, value) {
+  	state.linkmanTab = value
+  }
 }
 
 export default mutations

@@ -8,6 +8,7 @@
       :route="item.route"
       :type="item.type"
       :placeholder="item.placeholder"
+      :event="item.event"
       >
     </c-input>
     <div class="files">
@@ -22,11 +23,19 @@
       :event="submit"
       >  
     </c-input>
+    <template>
+      <mt-datetime-picker
+        ref="picker"
+        type="time"
+        v-model="pickerValue">
+      </mt-datetime-picker>
+    </template>
   </div>
 </template>
 
 <script>
   import cInput from 'c/cInput'
+  import { DatetimePicker } from 'mint-ui';
   export default {
     name: 'addVisit',
     data () {
@@ -44,10 +53,15 @@
             event: this.checkDate
           },
           {
-            label: '客户联系人',
+            label: '客户负责人',
             req: true,
             type: 'checkbox',
             route: 'checkResponse'
+          },
+          {
+            label: '联系人',
+            req: true,
+            type: 'text',
           },
           {
             label: '拜访内容',
@@ -56,14 +70,17 @@
             placeholder: '通过@可将拜访记录分享给其他人'
           },
         ],
+        pickerValue: '',
       }
     },
     components: {
       cInput,
+      [DatetimePicker.name]: DatetimePicker
     },
     methods: {
       checkDate () {
-        console.log('checkDate')
+        console.log('click picker')
+        this.$refs.picker.open()
       },
       submit () {
         console.log('submit')

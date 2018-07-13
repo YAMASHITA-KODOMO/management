@@ -157,7 +157,6 @@
   			}
 	  	},
 	  	clickTab (arg) {
-	  		console.log(arg)
 	  		this.$store.commit('SET_CUSTOMER_TAB', arg.id)
 	  	}
 	  }

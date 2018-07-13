@@ -18,8 +18,10 @@ const state = {
 	},
 	// 客户页面tab页面激活项,默认显示我负责的
 	customerTab: 'response',
+	// 联系人tab页面激活项
+	linkmanTab: 'usually',
 	// 编辑联系人信息
-	linkmane: {}
+	linkman: {}
 }
 
 export default state

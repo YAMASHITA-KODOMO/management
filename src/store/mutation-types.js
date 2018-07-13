@@ -7,3 +7,5 @@ export const SET_CUSTOMER = 'SET_CUSTOMER'
 export const SET_LINKMAN = 'SET_LINKMAN'
 
 export const SET_CUSTOMER_TAB = 'SET_CUSTOMER_TAB'
+
+export const SET_LINKMAN_TAB = 'SET_LINKMAN_TAB'
