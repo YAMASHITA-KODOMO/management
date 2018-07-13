@@ -37,11 +37,7 @@ export function getCustomerInfo(id) {
 		baseURL: '/api/'
 	})
 	return test.get('getCustomerInfo', {params: {id}})
-	.then(
-		(res)=>{
-			return res.data.data
-		}
-	)
+		.then(res => res.data.data)
 }
 // 关注客户
 export function setCustomerFollow(id) {
