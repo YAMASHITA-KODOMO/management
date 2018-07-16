@@ -122,9 +122,5 @@ module.exports = {
 			icon: require('../assets/imgs/ct-qtlx.png'),
 			typeID: '20'
 		},
-	],
-	devHost: 'http://task.ipanel.cn/projtest/api/customer_api',
-	prodHost: 'http://task.ipanel.cn/api/customer_api',
-	host: 'http://task.ipanel.cn/projtest/api/customer_api',
-	userid: 'wangj',
+	]
 }
