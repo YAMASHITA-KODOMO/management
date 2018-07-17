@@ -38,6 +38,8 @@
   }
   .active {
     border-color: $color-active;
+    background: url('../../assets/imgs/selected.png') no-repeat;
+    background-size: 32px;
   }
 }
 </style>

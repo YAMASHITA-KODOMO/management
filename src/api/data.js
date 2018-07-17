@@ -8,5 +8,11 @@ module.exports = {
 		linkman_num: 3,
 		files_num: 5,
 		follow: false
-	}
+	},
+	// 'visit_get_list_customer': {
+	// 	total： 124,
+	// 	list: [
+
+	// 	]
+	// }
 }

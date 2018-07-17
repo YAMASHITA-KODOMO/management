@@ -9,11 +9,8 @@
     </div>
     <c-input
       v-for="(item, index) in inputList"
-      :label="item.label"
-      :type="item.type"
-      :req="item.req"
+      :putInfo="item"
       :key="index"
-      :route="item.route"
       ></c-input>
   </div>
 </template>

@@ -2,13 +2,8 @@
   <div>
     <c-input 
       v-for='(item, index) in inputList'
-      :class="item.class"
-      :label='item.label'
+      :putInfo="item"
       v-model.lazy='customer[item.model]'
-      :req='item.req'
-      :type="item.type"
-      :route="item.route"
-      :event="item.event || function (){}"
       :key="index">
     </c-input>
     <city-picker v-show="cityPanel" @hidePanel="cityPanel = false" @submitPanel="submitCity"></city-picker>
@@ -114,8 +109,8 @@
     async created () {
       let id = this.$route.query.id
       if ( id ) {
-        let info = await getCustomerInfo(id)
-        this.initCustomer(info)
+        let res = await getCustomerInfo(id)
+        this.initCustomer(res.info)
       }
     },
     methods: {

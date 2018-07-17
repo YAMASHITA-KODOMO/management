@@ -8,7 +8,10 @@
 		  infinite-scroll-disabled="data.loading"
 		  infinite-scroll-distance="10">
 		  <no-record v-show="!data.list.length" :text="noInfo"></no-record>
-    	<linkman-item v-for="(item, index) in data.list" :key="'usually' + index" :dataObj="item"></linkman-item>
+		  <template v-for="(item, index) in data.list">
+		  	<alphabet-separate v-if="item.letter">{{item.letter}}</alphabet-separate>
+		  	<linkman-item v-else :key="data.id + index" :dataObj="item"></linkman-item>
+		  </template>
     </div>
   </div>
 </template>
@@ -64,6 +67,8 @@
 					loading: false,
 					all: false,
 				},
+				// 当前排序到的字母
+				letter: '',
 	    }
 	  },
 	  computed: {
@@ -88,6 +93,7 @@
 	  methods: {
 	  	// 获取常用联系人
 	  	async loadMoreUsually() {
+	  		// Indicator.open();
 	  		let res = await getLinkmanUsually({pageidx: this.usually.page})
 	  		this.usually.page++
 	  		if (res.list.length < 20) {
@@ -95,16 +101,29 @@
 	  			this.usually.all = true
 	  		}
 	  		this.usually.list.push(...res.list)
+	  		// Indicator.close();
 	  	},
-	  	// 获取常用联系人
+	  	// 获取全部联系人
 	  	async loadMoreTotal() {
 	  		let res = await getLinkmanTotal({pageidx: this.total.page})
+	  		// 页码增加
 	  		this.total.page ++
-	  		if (res.list.length < 20) {
+	  		let len = res.list.length
+	  		// 表示请求完全
+	  		if ( len < 20 ) {
 	  			this.total.loading = true
 	  			this.total.all = true
 	  		}
-	  		this.total.list.push(...res.list)
+	  		// 循环添加字母后的数据
+	  		let afterLetter = []
+	  		for (let i = 0; i < len; i++) {
+	  			let firstLetter = res.list[i].account.substr(0, 1).toUpperCase() || '#'
+	  			if (firstLetter !== this.letter) {
+	  				this.total.list.push({letter: firstLetter})
+	  				this.letter = firstLetter
+	  			}
+	  			this.total.list.push(res.list[i])
+	  		}
 	  	},
 	  	// 获取标记为删除联系人
 	  	async loadMoreDelete() {

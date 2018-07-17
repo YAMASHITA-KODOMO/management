@@ -1,4 +1,4 @@
-import axios from './config'
+import {instance as axios, test} from './index'
 
 // 获取常用联系人
 export function getLinkmanUsually (obj) {

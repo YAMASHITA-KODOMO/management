@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { getCustomerInfo } from 'api/customer'
+  import { getCustomerInfo, setCustomerFollow, cancelCustomerFollow } from 'api/customer'
   import cInfoTool from 'c/cInfoTool'
   export default {
     name: 'cInfoBanner',
@@ -36,13 +36,18 @@
       cInfoTool,
     },
     async created () {
-      this.info = await getCustomerInfo(this.id)
+      this.$loading.open()
+      let res = await getCustomerInfo(this.id)
+      this.info = res.info
+      this.$loading.close()
     },
     methods: {
-      setFollow () {
+      async setFollow () {
+        let res = await setCustomerFollow(this.id)
         this.info.follow = true
       },
-      cancelFollow () {
+      async cancelFollow () {
+        let res = await cancelCustomerFollow(this.id)
         this.info.follow = false
       },
       go (path, query) {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'pages/index'
+import { Indicator } from 'mint-ui'
 
 const Customer = resolve => {
   import('pages/customer').then(module => {
@@ -88,6 +89,15 @@ let defaltRouter = new Router({
       component: resolve => require(['pages/linkman'], resolve)
     },
     {
+      path: '/linkmanInfo',
+      name: 'linkmanInfo',
+      meta: {
+        name: '联系人信息'
+      },
+      component: resolve => require(['pages/linkman/linkmanInfo'], resolve)
+      
+    },
+    {
       path: '/addLinkman',
       name: 'addLinkman',
       meta: {
@@ -130,7 +140,15 @@ let defaltRouter = new Router({
         name: '搜索'
       },
       component: resolve => require(['pages/search'], resolve)
-    }
+    },
+    {
+      path: '/checkResponse',
+      name: 'checkResponse',
+      meta: {
+        name: '选择客户负责人'
+      },
+      component: resolve => require(['pages/checkResponse'], resolve)
+    },
   ]
 })
 
@@ -163,6 +181,8 @@ defaltRouter.beforeEach(function(to, from, next) {
   // ios下不能更新标题名,有问题的时候再使用，但会触发多次路由跳转事件
   //   document.body.appendChild(frameProxy())
   // }
+  // 在页面跳转的时候，隐藏加载按钮
+  Indicator.close()
   next()
 })
 

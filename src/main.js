@@ -6,10 +6,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from '@/store'
-import { InfiniteScroll  } from 'mint-ui'
+import { InfiniteScroll, Indicator, MessageBox } from 'mint-ui'
 
 Vue.use(InfiniteScroll)
 Vue.config.productionTip = false
+Vue.prototype.$loading = Indicator
+Vue.prototype.$MessageBox = MessageBox
 
 /* eslint-disable no-new */
 new Vue({

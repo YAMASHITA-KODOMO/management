@@ -41,7 +41,7 @@
         return this.list.map( (x, index)=> {
           x.sum = this.sum[index]
           return x
-        })
+        }, this)
       }
     }
   }

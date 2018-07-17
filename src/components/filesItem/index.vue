@@ -14,13 +14,22 @@
 </template>
 
 <script>
-  import { filesIcon } from '@/config'
   export default {
     name: 'filesItem',
     props: ['dataObj'],
     data () {
       return {
-        src: filesIcon['word'],
+        filesIcon: {
+          word: require('./word.png'),
+          txt: require('./txt.png'),
+          pdf: require('./pdf.png'),
+          xlxs: require('./xlxs.png'),
+          rar: require('./rar.png'),
+          ppt: require('./ppt.png'),
+          img: require('./img.png'),
+          others: require('./others.png'),
+        },
+        src: require('./word.png'),
       }
     },
     computed: {

@@ -12,9 +12,9 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
       >
-      <no-record :text="noInfo" v-if="!visitList.length"></no-record>
+      <no-record :text="noInfo" v-if="!visitList.length && listAll"></no-record>
       <visit-item v-for="(item, index) in visitList" :dataObj="item" :key="index"></visit-item>
-      <no-more v-show="listAll"></no-more>
+      <!-- <no-more v-show="listAll"></no-more> -->
     </div>
   </div>
 </template>
@@ -49,6 +49,7 @@
     },
     methods: {
       async loadMoreVisit () {
+        this.$loading.open()
         let res = await getVisitListWeekly({pageidx: this.curpage})
         if (!this.visitTotal) {
           this.visitTotal = res.total
@@ -59,6 +60,7 @@
           this.loading = true
           this.listAll = true
         }
+        this.$loading.close()
       }
     }
   }

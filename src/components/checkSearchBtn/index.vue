@@ -29,9 +29,14 @@
 <style lang="scss" scoped>
 @import '../../assets/scss/define';
 .check-search-btn {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 114px;
   background: url('../../assets/imgs/search-icon.png') no-repeat 20px center #fff;
   background-size: 28px;
+  z-index: 9;
   input {
     width: 500px;
     height: 60px;

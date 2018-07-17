@@ -19,7 +19,7 @@
   			<customer-item v-for="(item, index) in responseUsuallyList" :dataObj="item" :key="`responseUsually-${index}`"></customer-item>
   			<separate v-show="showOver3Separate">3个月以上未联系客户({{responseOver3Total}})</separate>
   			<customer-item v-for="(item, index) in responseOver3List" :dataObj="item" :key="index"></customer-item>
-  			<no-more v-show="responseAll"></no-more>
+  			<!-- <no-more v-show="responseAll"></no-more> -->
   		</div>
     </div>
     <!-- 我关注的 -->
@@ -32,7 +32,7 @@
 			  infinite-scroll-disabled="followLoading"
 			  infinite-scroll-distance="10">
 			  <customer-item v-for="(item, index) in followList" :dataObj="item" :key="index"></customer-item>
-			  <no-more v-if="followAll"></no-more>
+			  <!-- <no-more v-if="followAll"></no-more> -->
   		</div>
     	<no-record v-if="!followList.length && followAll" :text="noInfo"></no-record>
     </div>
@@ -41,8 +41,7 @@
     	class="mt6"
     	v-show="activeID === 'all'"
     	>
-    	<div class="c-type" v-for="(item, index) in allList" @click="$router.push({path: '/allCustomer', query: {typeId: item.typeID, name: item.name}})"><img :src="item.icon"></div>
-    	<no-record v-if="allList.lenght" :text="noInfo"></no-record>
+    	<type-item v-for="(item, index) in allList" :dataObj="item" :key="index"></type-item>
     </div>
   </div>
 </template>
@@ -55,13 +54,27 @@
 	import customerItem from 'c/customerItem'
 	import noMore from 'c/noMore'
 	import separate from 'c/separate'
-	import { getCutomerListResponseUsually, getCutomerListResponseOthers, getCutomerListFollow } from 'api/customer'
-	import { tabs, customerTypeIcon } from '@/config'
+	import typeItem from 'c/typeItem'
+	import { getCutomerListResponseUsually, getCutomerListResponseOver3, getCutomerListFollow } from 'api/customer'
+	import { customerTypeIcon } from '@/config'
 	export default {
 	  name: 'customer',
 	  data () {
 	    return {
-	    	tabs: tabs.customer,/*tab数据*/
+	    	tabs: [
+					{
+						text: '我负责的',
+						id: 'response',
+					},
+					{
+						text: '我关注的',
+						id: 'follow',
+					},
+					{
+						text: '全部客户',
+						id: 'all',
+					}
+				],/*tab数据*/
 	    	noInfo: '暂无客户信息',/*没有数据时的文字*/
 	    	/*我负责列表*/
 	    	responseUsuallyList: [],
@@ -78,7 +91,8 @@
 	    	followLoading: true,
 	    	followAll: false,
 	    	followPage: 1,
-	    	allList: customerTypeIcon,/*全部列表*/
+	    	allList: []
+	    	// allList: customerTypeIcon,/*全部列表*/
 	    }
 	  },
 	  computed: {
@@ -99,21 +113,31 @@
 	  	customerItem,
 	  	noMore,
 	  	separate,
+	  	typeItem,
 	  },
 	  async created () {
-	  	this.loadMoreFollowCustomer(0, 20)
-	  	this.loadMoreResponseCustomer(0, 20)
+	  	if (this.activeID === 'response') {
+	  		this.loadMoreResponseCustomer()
+	  	} else if (this.activeID === 'follow') {
+	  		this.loadMoreFollowCustomer(0, 20)
+	  	} else {
+	  		if(!this.allList.length) {
+	  			this.allList = customerTypeIcon
+	  		}
+	  	}	  	
 	  },
 	  methods: {
 	  	async loadMoreFollowCustomer () {
-	  		let res = await getCutomerListFollow({pageidx: this.followPage});
+	  		this.$loading.open()
+	  		let res = await getCutomerListFollow(this.followPage);
 	  		this.followList.push(...res.list)
 	  		if (res.list.length < 20) {
 	  			this.followAll = true
 	  			this.followLoading = true
 	  		}
+	  		this.$loading.close()
 	  	},
-	  	loadMoreResponseCustomer () {
+	  	async loadMoreResponseCustomer () {
 	  		// 逻辑
 	  		// 先获取usually， usually获取完获取over3， 获取over3完关闭load
 
@@ -127,7 +151,8 @@
 	  	},
 	  	// 获取常联系客户
 	  	async getUsually () {
-	  		let res = await getCutomerListResponseUsually({pageidx: this.responsePage})
+	  		this.$loading.open()
+	  		let res = await getCutomerListResponseUsually(this.responsePage)
 	  		this.responsePage ++
 	  		// 把数据push进去list
   			this.responseUsuallyList.push(...res.list)
@@ -139,10 +164,12 @@
   			if (res.list.length < 20) {
   				this.getOver3()
   			}
+  			this.$loading.close()
 	  	},
 	  	// 获取超过3个月不联系客户
 	  	async getOver3 () {
-	  		let res = await getCutomerListResponseOthers({pageidx: this.responseOver3Page})
+	  		this.$loading.open()
+	  		let res = await getCutomerListResponseOver3(this.responseOver3Page)
 	  		this.responseOver3Page ++
 	  		this.responseOver3List.push(...res.list)
 	  		if (!this.responseOver3Total) {
@@ -155,9 +182,13 @@
   			if (res.list.length < 20) {
   				this.responseAll = true
   			}
+  			this.$loading.close()
 	  	},
 	  	clickTab (arg) {
 	  		this.$store.commit('SET_CUSTOMER_TAB', arg.id)
+	  		if(arg.id === 'all' && !this.allList.length) {
+	  			this.allList = customerTypeIcon
+	  		}
 	  	}
 	  }
 	}

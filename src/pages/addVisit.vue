@@ -2,13 +2,8 @@
   <div class="add-visit">
     <c-input
       v-for="(item, index) in inputList"
+      :putInfo="item"
       :key="index"
-      :label="item.label"
-      :req="item.req"
-      :route="item.route"
-      :type="item.type"
-      :placeholder="item.placeholder"
-      :event="item.event"
       >
     </c-input>
     <div class="files">

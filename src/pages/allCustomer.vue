@@ -10,7 +10,7 @@
       >
       <customer-item v-for="(item, index) in list" :dataObj="item" :key="index"></customer-item>
     </div>
-    <no-more v-show="listTotal && listAll"></no-more>
+    <!-- <no-more v-show="listTotal && listAll"></no-more> -->
   </div>
 </template>
 
@@ -19,7 +19,7 @@
   import separate from 'c/separate'
   import noRecord from 'c/noRecord'
   import noMore from 'c/noMore'
-  import { getCustomerlistTotal } from 'api/customer'
+  import { getCustomerlistByType } from 'api/customer'
   export default {
     name: 'allCustomer',
     data () {
@@ -50,9 +50,10 @@
     },
     methods: {
       async getlist () {
+        this.$loading.open()
         this.loading = true
         // 加载之前设置为true，防止数据量过少，会触发两次load
-        let res = await getCustomerlistTotal({pageidx: this.curPage, typeid: this.typeID})
+        let res = await getCustomerlistByType(this.curPage, this.typeID)
         this.loading = false
         if (res.list.length < 20) {
           this.loading = true
@@ -63,6 +64,7 @@
         if (!this.total) {
           this.listTotal = parseInt(res.total)
         }
+        this.$loading.close()
       }
     },
   }
