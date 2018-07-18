@@ -11,6 +11,6 @@ export function getVisitList(obj = {pageidx: 1}) {
 }
 
 // 按照公司获取拜访记录
-export function getVisitListByCustomer (pageidx, customerID) {
-	return test.get('/visit_get_list_customer', {params: {pageidx: pageidx, customerid: customerID}})
+export function getVisitListByCustomer (pageidx, customerid) {
+	return test.get('/visit_get_list_customer', {params: {pageidx, customerid}})
 }
