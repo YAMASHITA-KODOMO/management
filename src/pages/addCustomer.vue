@@ -3,15 +3,19 @@
     <c-input 
       v-for='(item, index) in inputList'
       :putInfo="item"
-      v-model.lazy='customer[item.model]'
       :key="index">
     </c-input>
-    <city-picker v-show="cityPanel" @hidePanel="cityPanel = false" @submitPanel="submitCity"></city-picker>
+    备注：这里你再加一个提交按钮
+    <city-picker 
+      v-show="cityPanel" 
+      @hidePanel="cityPanel = false" 
+      @submitPanel="submitCity">
+    </city-picker>
   </div>
 </template>
 
 <script>
-  import { mapState, mapGetters, mapMutations } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import cInput from 'c/cInput'
   import cityPicker from 'c/cityPicker'
   import { getCustomerInfo } from 'api/customer'
@@ -81,11 +85,6 @@
             label: '备注',
             model: 'remark',
             type: 'area',
-          },
-          {
-            label: '提交',
-            type: 'btn',
-            event: this.submit
           }
         ],
         c: {name: 123},

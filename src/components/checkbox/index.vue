@@ -4,7 +4,6 @@
       <label><span v-show="need">*</span> {{label}}：</label>
       <div><p>{{value}}</p></div>
     </div>
-    
   </div>
 </template>
 
