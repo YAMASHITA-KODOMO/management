@@ -83,6 +83,7 @@
     > label {
       color: #6c6c6c;
       font-size: $font-size-large;
+      min-width: 160px;
       &.req:before {
         content: '*';
         color: $color-emphasis;
