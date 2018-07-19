@@ -93,11 +93,6 @@
       }
     },
     computed: {
-      // 需要跨页面获取数据，使用state保存
-      // ...mapState({
-      //   // 对象是引用地址，所以会直接修改state
-      //   customer: state => state.customer,
-      // })
       ...mapGetters([
         'customer'
       ])
