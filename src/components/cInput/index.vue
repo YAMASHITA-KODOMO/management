@@ -75,8 +75,8 @@
   background-color: #fff;
   color: $color-text;
   >div{
-    padding-right: 40px;
-    line-height: 90px;
+    padding: 5px 40px 5px 0;
+    line-height: 80px;
     display: flex;
     width: 100%;
     box-sizing: border-box;
