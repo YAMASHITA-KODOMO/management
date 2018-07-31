@@ -1,13 +1,13 @@
 <template>
   <div class="files-item" @click="clickEvent">
     <ul>
-      <li class="icon"><img :src="src"></li>
+      <li class="icon"><img :src="dataObj.name | icon"></li>
       <li class="main">
-        <p>{{dataObj.name}}</p>
-        <p>{{size}} 来自 <span>{{dataObj.response_man}}</span></p>
+        <p>{{dataObj.name.substring(16)}}</p>
+        <p>{{size}} 来自 <span>{{dataObj.response_name}}</span></p>
       </li>
       <li class="date">
-        {{dataObj.date}}
+        {{dataObj.time.substring(0, 10)}}
       </li>
     </ul>
   </div>
@@ -29,7 +29,49 @@
           img: require('./img.png'),
           others: require('./others.png'),
         },
-        src: require('./word.png'),
+      }
+    },
+    filters: {
+      icon (val) {
+        let icon = {
+          word: require('./word.png'),
+          txt: require('./txt.png'),
+          pdf: require('./pdf.png'),
+          xlxs: require('./xlxs.png'),
+          rar: require('./rar.png'),
+          ppt: require('./ppt.png'),
+          img: require('./img.png'),
+          others: require('./others.png'),
+        }
+        // word
+        if(val.search(/\.docx$/ig) > 0) {
+          return icon.word
+        }
+        // txt
+        if(val.search(/\.txt$/ig) > 0) {
+          return icon.txt
+        }
+        // pdf
+        if(val.search(/\.pdf$/ig) > 0) {
+          return icon.pdf
+        }
+        // xlxs
+        if(val.search(/\.xlxs$/ig) > 0) {
+          return icon.xlxs
+        }
+        // rar
+        if(val.search(/(\.rar|\.zip)$/ig) > 0) {
+          return icon.rar
+        }
+        // ppt
+        if(val.search(/\.pptx$/ig) > 0) {
+          return icon.pptx
+        }
+        // img
+        if(val.search(/(\.jpg|\.png|\.bmp|\.jpeg)$/ig) > 0) {
+          return icon.img
+        }
+        return icon.others
       }
     },
     computed: {
@@ -76,6 +118,7 @@
     }
     .main {
       height: 150px;
+      width: 100%;
       position: relative;
       padding-left: 14px;
       p:first-child {

@@ -4,7 +4,7 @@
       v-for="(item, index) in toolList" 
       :style="{background: item.bgcolor }"
       :key="index"
-      @click="$router.push({path: item.url, query: {id: $route.query.id}})"
+      @click="$router.push({path: item.url, query: {id: $route.query.id, name: name}})"
       >
       <img :src="item.icon">
       {{item.text}}({{item.sum}})
@@ -15,7 +15,7 @@
 <script>
   export default {
     name: 'cInfoTool',
-    props: ['sum'],
+    props: ['sum', 'name'],
     data () {
       return {
         list: [

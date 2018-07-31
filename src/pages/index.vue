@@ -4,18 +4,17 @@
       <!-- 菜单模块 -->
       <menu-list></menu-list>
       <!-- 文字分割 -->
-      <separate class="separate">本周拜访记录({{visitTotal}})</separate>
+      <separate class="separate">本周拜访记录({{visitTotal === null ? 0 : visitTotal}})</separate>
     </div>
-    <div
-      class="scroll"
-      v-infinite-scroll="loadMoreVisit"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
+    <no-record :text="noInfo" v-if="visitTotal !== null && !visitTotal"></no-record>
+    <load-list
+      class='scroll'
+      @loadMore="loadMoreVisit"
+      cpnt="visitItem"
+      :list="visitList"
+      :forbid="loading"
       >
-      <no-record :text="noInfo" v-if="!visitList.length && listAll"></no-record>
-      <visit-item v-for="(item, index) in visitList" :dataObj="item" :key="index"></visit-item>
-      <!-- <no-more v-show="listAll"></no-more> -->
-    </div>
+    </load-list>
   </div>
 </template>
 
@@ -23,18 +22,16 @@
   import menuList from 'c/menuList'
   import separate from 'c/separate'
   import noRecord from 'c/noRecord'
-  import visitItem from 'c/visitItem'
-  import noMore from 'c/noMore'
+  import loadList from 'c/loadList'
   import { getVisitListWeekly } from 'api/visit'
   export default {
     name: '',
     data () {
       return {
-        visitTotal: 0,
+        visitTotal: null,
         noInfo: '暂无拜访记录',
         visitList: [],
         loading: false,
-        listAll: false,
         curpage: 1
       }
     },
@@ -42,24 +39,18 @@
       menuList,
       separate,
       noRecord,
-      visitItem,
-      noMore,
+      loadList,
     },
     async created () {
+      console.log('this.$indicator:' + this.$indicator)
     },
     methods: {
       async loadMoreVisit () {
         this.$loading.open()
-        let res = await getVisitListWeekly({pageidx: this.curpage})
-        if (!this.visitTotal) {
-          this.visitTotal = res.total
-        }
+        let res = await getVisitListWeekly(this.curpage)
         this.curpage++
-        this.visitList.push(...res.list)
-        if (res.list.length < 20) {
-          this.loading = true
-          this.listAll = true
-        }
+        this.visitTotal = parseInt(res.total)
+        this.visitList = res.list
         this.$loading.close()
       }
     }
@@ -81,6 +72,9 @@
   }
   .scroll {
     padding-top: 324px;
+  }
+  .no-record {
+    margin-top: 324px;
   }
 }
 </style>

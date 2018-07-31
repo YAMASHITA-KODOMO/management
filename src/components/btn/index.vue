@@ -23,7 +23,7 @@
 .btn>div{
   height: 96px;
   width: 710px;
-  margin: 0 auto;
+  margin: 40px auto;
   border-radius: 10px;
   background: #f3602d;
   font-size: 36px;

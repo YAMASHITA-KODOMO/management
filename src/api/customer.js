@@ -39,7 +39,12 @@ export function cancelCustomerFollow(id) {
 }
 
 // 取消关注
-export function getType(id) {
-	return axios.get('get_customer_type', {params: {}})
+// export function getType(id) {
+// 	return axios.get('get_customer_type', {params: {}})
+// }
+
+//获取客户名下联系人
+export function getLinkmanByCustoner (pageidx, customerid) {
+	return axios.get('/linkman_get_list', {params: {pageidx, customerid}})
 }
 

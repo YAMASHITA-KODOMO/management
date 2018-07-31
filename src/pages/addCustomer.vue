@@ -3,22 +3,21 @@
     <c-input 
       v-for='(item, index) in inputList'
       :putInfo="item"
+      :value="customer[item.model]"
+      v-model='customer[item.model]'
       :key="index">
     </c-input>
-    备注：这里你再加一个提交按钮
-    <city-picker 
-      v-show="cityPanel" 
-      @hidePanel="cityPanel = false" 
-      @submitPanel="submitCity">
-    </city-picker>
+    <btn @click="submit">提交</btn>
+    <city-picker v-show="cityPanel" @hidePanel="cityPanel = false" @submitPanel="submitCity"></city-picker>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapState, mapGetters, mapMutations } from 'vuex'
   import cInput from 'c/cInput'
   import cityPicker from 'c/cityPicker'
   import { getCustomerInfo } from 'api/customer'
+  import btn from 'c/btn'
   export default {
     name: 'addCustomer',
     data () {
@@ -85,13 +84,22 @@
             label: '备注',
             model: 'remark',
             type: 'area',
+          },
+          {
+            label: '提交',
+            type: 'btn',
+            event: this.submit
           }
         ],
-        c: {name: 123},
         cityPanel: false
       }
     },
     computed: {
+      // 需要跨页面获取数据，使用state保存
+      // ...mapState({
+      //   // 对象是引用地址，所以会直接修改state
+      //   customer: state => state.customer,
+      // })
       ...mapGetters([
         'customer'
       ])
@@ -99,12 +107,19 @@
     components: {
       cInput,
       cityPicker,
+      btn,
     },
     async created () {
       let id = this.$route.query.id
       if ( id ) {
         let res = await getCustomerInfo(id)
         this.initCustomer(res.info)
+        console.log(this.customer)
+      }
+    },
+    watch: {
+      customer () {
+        console.log('sss')
       }
     },
     methods: {
@@ -123,7 +138,6 @@
         console.log(values)
       },
       submit () {
-        console.log(this.customer)
         console.log(this.$store.state.customer)
       },
     },

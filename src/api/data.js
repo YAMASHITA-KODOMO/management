@@ -9,10 +9,18 @@ module.exports = {
 		files_num: 5,
 		follow: false
 	},
-	// 'visit_get_list_customer': {
-	// 	total： 124,
-	// 	list: [
-
-	// 	]
-	// }
+	'linkman_get_info':{
+		// card:[
+		// 	src:'img.jpg',
+		// 	update:'2018-07-20'
+		// ],
+		name:'姓名',
+		// phone:'电话',
+		// customer:'客户',
+		// customerid:'用户编辑'
+		// department:'部门'
+		// job:'职位',
+		// remark:'备注',
+		// delete:0
+	}
 }

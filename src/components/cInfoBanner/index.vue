@@ -9,10 +9,10 @@
         >{{followTip}}
       </div>
       <p>客户负责人：{{info.response_man}}</p>
-      <p>电话：{{info.phone}}&nbsp;&nbsp;&nbsp;&nbsp;邮编：{{info.postal}}</p>
-      <p class="address">地址：{{info.address}}</p>
+      <p>电话：{{info.phone || '未知'}}&nbsp;&nbsp;&nbsp;&nbsp;邮编：{{info.postal || '未知'}}</p>
+      <p class="address">地址：{{info.address || '未知'}}</p>
     </div>
-    <c-info-tool class="tool" :sum="[info.linkman_num, info.files_num]"></c-info-tool>
+    <c-info-tool class="tool" :sum="[info.linkman_num, info.files_num]" :name="info.name"></c-info-tool>
   </div>
 </template>
 

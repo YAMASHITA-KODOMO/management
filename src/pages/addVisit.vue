@@ -12,16 +12,16 @@
       <p class="files-name"><a>axxx.doc</a></p>
       <div class="add-files"></div>
     </div>
-    <c-input
-      label="提交"
-      type="btn"
-      :event="submit"
-      >  
-    </c-input>
+    <btn>提交</btn>
     <template>
       <mt-datetime-picker
         ref="picker"
-        type="time"
+        :visibleItemCount="7"
+        :itemHeight="188"
+        type="date"
+        year-format="{value} 年"
+        month-format="{value} 月"
+        date-format="{value} 日"
         v-model="pickerValue">
       </mt-datetime-picker>
     </template>
@@ -30,6 +30,7 @@
 
 <script>
   import cInput from 'c/cInput'
+  import btn from 'c/btn'
   import { DatetimePicker } from 'mint-ui';
   export default {
     name: 'addVisit',
@@ -66,10 +67,12 @@
           },
         ],
         pickerValue: '',
+        hei: Math.round(1.333333333 * window.lib.flexible.rem)
       }
     },
     components: {
       cInput,
+      btn,
       [DatetimePicker.name]: DatetimePicker
     },
     methods: {

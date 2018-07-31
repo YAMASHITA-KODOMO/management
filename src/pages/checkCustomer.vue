@@ -7,9 +7,13 @@
       infinite-scroll-distance="10"
       >
       <separate>常联系客户</separate>
-      <check-item @click="clickEvent(item)" v-for="(item, index) in usuallyList" :key="index" :checked="checkedID === item.id">{{item.name}}</check-item>
+      <check-item 
+        @click="clickEvent(item)" 
+        v-for="(item, index) in usuallyList" 
+        :key="index" 
+        :checked="checkedID === item.id">{{item.name}}</check-item>
       <template v-for="(item, index) in totalList">
-        <alphabet-separate v-if="item.letter">{{item.letter}}</alphabet-separate>
+        <alphabet-separate v-if="item.letter" :key="item.letter">{{item.letter}}</alphabet-separate>
         <check-item v-else  @click="clickEvent(item)" :key="'normal' + index" :checked="checkedID === item.id">{{item.name}}</check-item>
       </template>
     </div>
@@ -25,7 +29,7 @@
   import separate from 'c/separate'
   import checkItem from 'c/checkItem'
   import alphabetSeparate from 'c/alphabetSeparate'
-  import { getCustomerlistTotal, getCutomerListResponseUsually, getType } from 'api/customer'
+  import { getCustomerlistTotal, getCutomerListResponseUsually } from 'api/customer'
   export default {
     name: 'checkCustomer',
     props: [],
@@ -49,7 +53,7 @@
       alphabetSeparate,
     },
     created () {
-      getType()
+      // getType()
     },
     methods: {
       getList () {

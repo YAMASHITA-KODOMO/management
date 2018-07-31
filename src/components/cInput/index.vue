@@ -1,12 +1,12 @@
 <template>
   <div class="c-input" >
-    <div :class='[putInfo.type]'>
+    <div :class='[putInfo.type, putInfo.icon]'>
       <label key="label" :class='{req:putInfo.req}'> {{putInfo.label}}：</label>
       <input
         v-if="putInfo.type === 'text'"
         class='context' 
         type="text"
-        :value="putInfo.value"
+        :value="value"
         :placeholder="putInfo.placeholder"
         @change="changeEvent($event)"
         @click="focusEvent($event)"
@@ -15,11 +15,12 @@
         v-if="putInfo.type === 'checkbox'"
         class='context' 
         @click="clickEvent()"
-      > {{putInfo.value}} </p>
+      > {{value}} </p>
       <textarea
+        :readonly="putInfo.readonly"
         v-if="putInfo.type === 'area'"
         class='context' 
-        :value="putInfo.value"
+        :value="value"
         :placeholder="putInfo.placeholder"
         @input="inputEvent($event)"
       ></textarea>
@@ -30,7 +31,7 @@
 <script>
   export default {
     name: 'cInput',
-    props: ['putInfo'],
+    props: ['putInfo', 'value'],
     data () {
       return {
       }
@@ -42,7 +43,7 @@
       },
       clickEvent (event) {
         // 传递了type跳到选择页面，没有传递则抛出click事件
-        console.log(this.putInfo)
+        // console.log(this.putInfo)
         if (this.putInfo.route) {
           this.$router.push({path: '/' + this.putInfo.route})
         } else {
@@ -98,7 +99,19 @@
     }
   }
   > .checkbox {
-    background: url('./more.png') 700px center / 14px no-repeat;
+    background: url('./more.png') 696px center / 16px no-repeat;
+    p {
+      padding-right: 17px;
+    }
+    &.download {
+      background: url('./download.png') 683px center / 27px no-repeat;
+    }
+    &.call {
+      background: url('./call.png') 683px center / 27px no-repeat;
+    }
+    &.none {
+      background: none;
+    }
   }
   > .area {
     overflow: hidden;

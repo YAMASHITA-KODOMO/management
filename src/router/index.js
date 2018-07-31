@@ -53,6 +53,14 @@ let defaltRouter = new Router({
       component: resolve => require(['pages/customer/customerInfo'], resolve)
     },
     {
+      path: '/cLinkman',
+      name: 'cLinkman',
+      meta: {
+        name: '相关联系人'
+      },
+      component: resolve => require(['pages/customer/cLinkman'], resolve)
+    },
+    {
       path: '/addCustomer',
       name: 'addCustomer',
       meta: {
@@ -122,6 +130,14 @@ let defaltRouter = new Router({
         name: '新建拜访记录'
       },
       component: resolve => require(['pages/addVisit'], resolve)
+    },
+    {
+      path: '/visitInfo',
+      name: 'visitInfo',
+      meta: {
+        name: '拜访记录'
+      },
+      component: resolve => require(['pages/visitInfo'], resolve)
     },
     {
       path: '/files',

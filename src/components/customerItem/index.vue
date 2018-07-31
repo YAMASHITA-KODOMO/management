@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: '',
+    name: 'customerItem',
     props: ['dataObj'],
     data () {
       return {

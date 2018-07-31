@@ -3,7 +3,7 @@
   <div class="add-btn" :class="{coverShow: mask}">
     <div v-show="mask" class="add-cover" @click="mask=!mask">
       <ul>
-        <li v-for="(item, index) in addList" :key=index>
+        <li v-for="(item, index) in addList">
           <p @click="clickEvent(item)">{{item.text}}</p>
           <img :src="item.icon" @click="clickEvent(item)">
         </li>
@@ -21,22 +21,24 @@
         mask: false,
         addList: [
           {
-            icon: require('./add-customer-icon.png'),
+            icon: require('c/addBtn/add-customer-icon.png'),
             url: '/addCustomer',
             text: '添加客户',
           },
           {
-            icon: require('./add-linkman-icon.png'),
+            icon: require('c/addBtn/add-linkman-icon.png'),
             url: '/addLinkman',
             text: '添加联系人',
           },
           {
-            icon: require('./add-visit-icon.png'),
+            icon: require('c/addBtn/add-visit-icon.png'),
             url: '/addVisit',
             text: '添加拜访记录',
           }
         ]
       }
+    },
+    created () {
     },
     methods: {
       clickEvent (item) {

@@ -1,16 +1,22 @@
 <template>
   <div class="check-response">
     <check-search-btn v-model="keyword" placeholder="搜索" :checked="checkedID" @click="submit"></check-search-btn>
-    <div v-show="keyword === ''"
-      v-infinite-scroll="getList"
-      infinite-scroll-disabled="normalLoading"
-      infinite-scroll-distance="10"
-      >
-      <template v-for="(item, index) in normalList">
-        <alphabet-separate v-if="item.letter">{{item.letter}}</alphabet-separate>
-        <check-item v-else  @click="clickEvent(item)" :key="'normal' + index" :dataObj="item" :checked="checkedID === item.account">{{item.username}}</check-item>
-      </template>
-    </div>
+    <!-- 
+      loadmore触发加载数据函数
+      list 绑定每次加载之后拿到的数据
+      cpnt 显示的组件
+      forbid 外部控制加载
+      alpha 是否显示字母分割
+      click 触发click事件， 参数为item
+     -->
+    <load-list
+      @loadMore="getList"
+      :list="normalList"
+      cpnt="checkItem"
+      :forbid="normalLoading"
+      :alpha="true"
+      @click="clickEvent"
+      ></load-list>
     <div v-show="keyword !== ''"
       v-infinite-scroll=""
       infinite-scroll-disabled=""
@@ -26,6 +32,7 @@
   import checkItem from 'c/checkItem'
   import alphabetSeparate from 'c/alphabetSeparate'
   import checkSearchBtn from 'c/checkSearchBtn'
+  import loadList from 'c/loadList'
   export default {
     name: 'checkResponse',
     data () {
@@ -42,6 +49,7 @@
       checkSearchBtn,
       checkItem,
       alphabetSeparate,
+      loadList,
     },
     async created() {
       
@@ -49,20 +57,11 @@
     methods: {
       async getList () {
         this.$loading.open()
+        this.normalLoading = true
         let res = await getResponseList(this.normalPage)
-        console.log(res)
         this.normalPage++
-        let len = res.userlist.length
-        // 循环添加字母后的数据
-        let afterLetter = []
-        for (let i = 0; i < len; i++) {
-          let firstLetter = res.userlist[i].account.substr(0, 1).toUpperCase() || '#'
-          if (firstLetter !== this.letter) {
-            this.normalList.push({letter: firstLetter})
-            this.letter = firstLetter
-          }
-          this.normalList.push(res.userlist[i])
-        }
+        this.normalList = res.userlist
+        this.normalLoading = false
         this.$loading.close()
       },
       submit () {

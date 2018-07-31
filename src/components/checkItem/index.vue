@@ -11,6 +11,9 @@
     data () {
       return {
       }
+    },
+    created () {
+      console.log('checkItem')
     }
   }
 </script>

@@ -12,10 +12,12 @@
       :putInfo="item"
       :key="index"
       ></c-input>
+      <btn>提交</btn>
   </div>
 </template>
 
 <script>
+  import btn from 'c/btn'
   import cInput from 'c/cInput'
   export default {
     name: 'addLinkman',
@@ -49,15 +51,12 @@
             label: '备注',
             type: 'area',
           },
-          {
-            label: '提交',
-            type: 'btn',
-          },
         ]
       }
     },
     components: {
       cInput,
+      btn,
     }
   }
 </script>

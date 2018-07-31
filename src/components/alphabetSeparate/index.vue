@@ -6,11 +6,14 @@
 
 <script>
   export default {
-    name: 'linkmaneSeparate',
+    name: 'alphabetSeparate',
     props: ['text'],
     data () {
       return {
       }
+    },
+    created () {
+      console.log('alphabetSeparate')
     }
   }
 </script>

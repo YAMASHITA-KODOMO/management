@@ -1,11 +1,11 @@
 <template>
   <div class="visit-item">
-  	<p class="name">{{dataObj.customer_name}}</p>
+  	<p class="name" @click="$router.push({path: '/visitInfo', query: {id: dataObj.id}})">{{dataObj.customer_name}}</p>
     <p class="date">{{dataObj.date}}&nbsp;&nbsp;{{dataObj.linkman}}</p>
     <div 
       class="transiton-wrap" 
       ref='trans'
-      :style="{height: hide ? transHideHei : transShowHei}"
+      :style="open ? {} : {height: hide ? transHideHei : transShowHei}"
       >
       <p 
         ref="content" 
@@ -21,8 +21,8 @@
     </div>
     <p class="response_man">{{dataObj.response_man}}&nbsp;&nbsp;{{dataObj.uptime}}</p>
     <p class="hide-tips">
-      <span @click="hide = !hide">{{tipsText}}</span>
-      <span @click="hide = !hide" class="switch" :class="{on: hide, off: !hide}"></span>
+      <span  v-if="!open" @click="hide = !hide">{{tipsText}}</span>
+      <span  v-if="!open" @click="hide = !hide" class="switch" :class="{on: hide, off: !hide}"></span>
     </p>
   </div>
 </template>
@@ -30,7 +30,7 @@
 <script>
   export default {
     name: 'visitItem',
-    props: ['dataObj'],
+    props: ['dataObj', 'open'],
     data () {
       return {
         hide: true,
@@ -46,6 +46,9 @@
       // 添加文本溢出样式
       addbreak: {
         get () {
+          if (this.open) {
+            return false
+          }
           // 默认情况下hide是true，但是addbreak是false，只有设置了getHeiInit获取到content原始高度后，hide与addbreak才同步
           return this.getHeiInit ? this.hide : false
         },

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox } from 'mint-ui'
+import { MessageBox, Indicator } from 'mint-ui'
 
 const baseURL = {
 	devHost: 'http://task.ipanel.cn/projtest/api/customer_api',
@@ -16,6 +16,7 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+  Indicator.open()
   // 在发送请求之前做些什么
   if (config.method === 'get') {
   	if (config.params) {
@@ -32,6 +33,7 @@ instance.interceptors.request.use(function (config) {
 });
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
+  Indicator.close()
   // 对响应数据做点什么
   if (response.data.flag) {
     return response.data;

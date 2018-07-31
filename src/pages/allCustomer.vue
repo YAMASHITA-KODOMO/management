@@ -2,14 +2,22 @@
   <div class="all-customer">
     <separate @click.prevent="loading = false" class="separate">{{typeName}}</separate>
     <no-record v-show="!listTotal && listAll" :text="noRecord"></no-record>
-    <div
+    <load-list
+      @loadMore="getlist"
+      :list="list"
+      :forbid="loading"
+      cpnt="customerItem"
+      :alpha="false"
+      @click=""
+      ></load-list>
+   <!--  <div
       class="scroll"
       v-infinite-scroll="getlist"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
       >
       <customer-item v-for="(item, index) in list" :dataObj="item" :key="index"></customer-item>
-    </div>
+    </div> -->
     <!-- <no-more v-show="listTotal && listAll"></no-more> -->
   </div>
 </template>
@@ -20,6 +28,7 @@
   import noRecord from 'c/noRecord'
   import noMore from 'c/noMore'
   import { getCustomerlistByType } from 'api/customer'
+  import loadList from 'c/loadList'
   export default {
     name: 'allCustomer',
     data () {
@@ -45,6 +54,7 @@
       separate,
       noRecord,
       noMore,
+      loadList,
     },
     created () {
     },
@@ -54,13 +64,16 @@
         this.loading = true
         // 加载之前设置为true，防止数据量过少，会触发两次load
         let res = await getCustomerlistByType(this.curPage, this.typeID)
+        this.list = res.list
         this.loading = false
+        console.log(res)
         if (res.list.length < 20) {
-          this.loading = true
+          console.log('listAll')
+        //   // this.loading = true
           this.listAll = true
         }
         this.curPage ++
-        this.list.push(...res.list)
+        // this.list.push(...res.list)
         if (!this.total) {
           this.listTotal = parseInt(res.total)
         }

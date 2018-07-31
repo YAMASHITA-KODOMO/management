@@ -2,7 +2,7 @@ const state = {
 	// 全局记录编辑信息，因为需要两个页面之间跳转
 	// 因为直接引用的对象，所以会跟着改变，不需mutation
 	customer: {
-		// name: '',
+		name: '',
 		// type: '',
 		// typeID: '',
 		// sup: '',
